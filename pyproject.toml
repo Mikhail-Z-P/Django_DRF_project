@@ -2,26 +2,21 @@
 name = "django-drf-project"
 version = "0.1.0"
 description = ""
-authors = [{name = "Your Name",email = "you@example.com"}]
-requires-python = ">=3.14"
-dependencies = ["python-dotenv (>=1.2.3,<2.0.0)", "django (>=6.1.1,<7.0.0)", "djangorestframework (>=3.18.1,<4.0.0)", "pillow (>=12.3.0,<13.0.0)"]
-
+authors = [{name = "[{name = \"Your Name\",email = \"you@example.com\"}]"}]
+readme = "README.md"
+requires-python = "^3.14.5"
+dependencies = [
+    "django (>=6.1.1,<7.0.0)",
+    "djangorestframework (>=3.18.1,<4.0.0)",
+    "requests (>=2.34.2,<3.0.0)",
+    "pillow (>=12.3.0,<13.0.0)",
+    "ipython (>=9.17.1,<10.0.0)"
+]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-
-
-[tool.poetry]
-name = "django-drf-project"
-version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
-package-mode = false
-
-
 
 [dependency-groups]
 lint = [
@@ -34,3 +29,9 @@ dev = [
     "pytest (>=9.1.1,<10.0.0)",
     "pytest-cov (>=7.1.0,<8.0.0)"
 ]
+[tool.poetry]
+name = "django-drf-project"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+package-mode = false
