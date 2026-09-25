@@ -1,6 +1,9 @@
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.db import models
+from materials.models import Course, Lesson
+from django.core.exceptions import ValidationError
+
 
 
 class UserManager(BaseUserManager):
@@ -44,3 +47,32 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Payment(models.Model):
+    """
+    Модель для хранения истории платежей.
+    Позволяет фиксировать оплату как за курс целиком, так и за отдельный урок.
+    """
+    PAYMENT_METHOD_CHOICES = [
+        ('cash', 'Наличные'),
+        ('transfer', 'Перевод на счет'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True, related_name='payments')
+    lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name='payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма оплаты')
+    payment_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оплаты')
+    payment_method = models.CharField(max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name='Способ оплаты')
+
+    def __str__(self):
+        return f"Платеж {self.amount} от {self.user.username}"
+
+    def clean(self):
+        """
+        Валидация: должен быть выбран либо курс, либо урок, но не оба сразу и не ни одного.
+        """
+        if not self.course and not self.lesson:
+            raise ValidationError("Необходимо указать оплаченный курс или урок.")
+        if self.course and self.lesson:
+            raise ValidationError("Нельзя одновременно указать и курс, и урок.")
