@@ -10,7 +10,8 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ["id", "title", "description", "video_url", "course"]
+        fields = ["id", "title", "description", "video_url", "course", "owner"]
+        read_only_fields = ["owner"]
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -24,7 +25,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ["id", "title", "description", "total_lessons", "lessons"]
+        fields = ["id", "title", "description", "total_lessons", "lessons", "owner"]
+        read_only_fields = ["owner"]
 
     def get_total_lessons(self, obj):
         """
