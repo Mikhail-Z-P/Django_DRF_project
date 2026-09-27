@@ -1,13 +1,8 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from .views import (
-    CustomTokenObtainPairView,
-    PaymentViewSet,
-    UserDetailView,
-    UserListView,
-    UserRegistrationView,
-)
+from .views import (CustomTokenObtainPairView, PaymentViewSet, UserDetailView,
+                    UserListView, UserRegistrationView)
 
 router = DefaultRouter()
 router.register(r"payments", PaymentViewSet, basename="payment")

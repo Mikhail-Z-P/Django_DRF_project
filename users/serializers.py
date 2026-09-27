@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Payment, User
 
 
@@ -19,6 +20,7 @@ class PaymentSerializer(serializers.ModelSerializer):
             "payment_date",
             "payment_method",
         ]
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Сериализатор для просмотра и редактирования пользователя."""

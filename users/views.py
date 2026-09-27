@@ -1,14 +1,11 @@
 from rest_framework import generics, permissions, viewsets
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import Payment, User
-from .serializers import (
-    PaymentSerializer,
-    UserSerializer,
-    UserRegistrationSerializer,
-)
 from .filters import PaymentFilter
+from .models import Payment, User
+from .serializers import (PaymentSerializer, UserRegistrationSerializer,
+                          UserSerializer)
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

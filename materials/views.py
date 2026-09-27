@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions, viewsets
 
 from materials.models import Course, Lesson
+from materials.permissions import IsNotModerator, IsOwner, IsOwnerOrModerator
 from materials.serializers import CourseSerializer, LessonSerializer
-from materials.permissions import IsModerator, IsNotModerator, IsOwner, IsOwnerOrModerator
 
 
 class CourseViewSet(viewsets.ModelViewSet):
