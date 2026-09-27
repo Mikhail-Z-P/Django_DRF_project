@@ -48,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Пользователи"
 
     def __str__(self):
-        return f"Платеж {self.amount} от {self.user.email}"
+        return self.email
 
 
 class Payment(models.Model):
@@ -86,7 +86,7 @@ class Payment(models.Model):
     )
 
     def __str__(self):
-        return f"Платеж {self.amount} от {self.user.username}"
+        return self.user.email
 
     def clean(self):
         """
