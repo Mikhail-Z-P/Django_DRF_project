@@ -1,4 +1,4 @@
-# django-project
+# Django_DRF_project
 
 # Структура
 - `config/` - настройки проекта (settings, urls, wsgi и т.д.)

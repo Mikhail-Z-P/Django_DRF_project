@@ -1,11 +1,9 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
-from django.db import models
-from materials.models import Course, Lesson
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.core.exceptions import ValidationError
+from django.db import models
+
+from materials.models import Course, Lesson
 
 
 class UserManager(BaseUserManager):
@@ -50,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Пользователи"
 
     def __str__(self):
-        return self.email
+        return f"Платеж {self.amount} от {self.user.email}"
 
 
 class Payment(models.Model):
