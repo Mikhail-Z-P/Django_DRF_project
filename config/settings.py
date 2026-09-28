@@ -31,9 +31,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "users",
     "materials",
+    "drf_yasg",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -42,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "config.urls"
 
@@ -140,3 +144,10 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': False,
 }
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:8000",]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_sk_test_51UKjRq9Zw8sf7r7xkWv2fwziMxXlOzV6VFGvAATzVpzXD8yp6VqtAAk2BFlFNxeKettnzDRkNrSdbqgrHQyJ7VgL00dQx1WgEC")
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "pk_test_pk_test_51UKjRq9Zw8sf7r7xeQ5HBIzzpNN7mZlOFgzrTFkqNVDFxd6PicxnjXVtENCYh6ojGlsGOjpMrYvSBjkvfOGVe27200CbF5DXaI")
