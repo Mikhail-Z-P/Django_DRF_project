@@ -106,10 +106,30 @@ class PaymentViewSet(viewsets.ModelViewSet):
         """Возвращает список платежей с пагинацией."""
         return super().list(request, *args, **kwargs)
 
+    @swagger_auto_schema(operation_summary="Создание платежа вручную")
+    def create(self, request, *args, **kwargs):
+        """Создаёт платёж без Stripe (для записи наличных оплат)."""
+        return super().create(request, *args, **kwargs)
+
     @swagger_auto_schema(operation_summary="Получение платежа по ID")
     def retrieve(self, request, *args, **kwargs):
         """Возвращает детали конкретного платежа."""
         return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary="Обновление платежа")
+    def update(self, request, *args, **kwargs):
+        """Полное обновление данных платежа."""
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary="Частичное обновление платежа")
+    def partial_update(self, request, *args, **kwargs):
+        """Частичное обновление данных платежа."""
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_summary="Удаление платежа")
+    def destroy(self, request, *args, **kwargs):
+        """Удаляет запись о платеже."""
+        return super().destroy(request, *args, **kwargs)
 
 
 class PaymentCreateView(generics.CreateAPIView):
