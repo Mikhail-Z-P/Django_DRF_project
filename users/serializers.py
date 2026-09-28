@@ -4,10 +4,7 @@ from .models import Payment, User
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    """
-    Сериализатор для модели Payment.
-    Преобразует объекты платежей в JSON и обратно.
-    """
+    """Сериализатор для модели Payment с полями Stripe."""
 
     class Meta:
         model = Payment
@@ -19,6 +16,18 @@ class PaymentSerializer(serializers.ModelSerializer):
             "amount",
             "payment_date",
             "payment_method",
+            "stripe_product_id",
+            "stripe_price_id",
+            "stripe_session_id",
+            "payment_link",
+        ]
+        read_only_fields = [
+            "user",
+            "payment_date",
+            "stripe_product_id",
+            "stripe_price_id",
+            "stripe_session_id",
+            "payment_link",
         ]
 
 

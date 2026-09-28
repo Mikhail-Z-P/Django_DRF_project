@@ -52,17 +52,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Payment(models.Model):
-    """
-    Модель для хранения истории платежей.
-    Позволяет фиксировать оплату как за курс целиком, так и за отдельный урок.
-    """
+    """Модель платежа пользователя за курс или урок с интеграцией Stripe."""
 
     PAYMENT_METHOD_CHOICES = [
         ("cash", "Наличные"),
         ("transfer", "Перевод на счет"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payments")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="payments"
+    )
     course = models.ForeignKey(
         Course,
         on_delete=models.SET_NULL,
@@ -84,14 +83,29 @@ class Payment(models.Model):
     payment_method = models.CharField(
         max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name="Способ оплаты"
     )
+    stripe_product_id = models.CharField(
+        max_length=255, blank=True, default="", verbose_name="ID продукта в Stripe"
+    )
+    stripe_price_id = models.CharField(
+        max_length=255, blank=True, default="", verbose_name="ID цены в Stripe"
+    )
+    stripe_session_id = models.CharField(
+        max_length=255, blank=True, default="", verbose_name="ID сессии в Stripe"
+    )
+    payment_link = models.URLField(
+        max_length=500, blank=True, default="", verbose_name="Ссылка на оплату"
+    )
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
+        ordering = ["-payment_date"]
 
     def __str__(self):
         return f"Платеж {self.amount} от {self.user.email}"
 
     def clean(self):
-        """
-        Валидация: должен быть выбран либо курс, либо урок, но не оба сразу и не ни одного.
-        """
+        """Валидация: должен быть выбран либо курс, либо урок, но не оба."""
         if not self.course and not self.lesson:
             raise ValidationError("Необходимо указать оплаченный курс или урок.")
         if self.course and self.lesson:
