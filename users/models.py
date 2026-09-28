@@ -86,7 +86,7 @@ class Payment(models.Model):
     )
 
     def __str__(self):
-        return self.user.email
+        return f"Платеж {self.amount} от {self.user.email}"
 
     def clean(self):
         """

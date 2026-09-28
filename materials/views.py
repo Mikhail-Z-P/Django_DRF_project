@@ -12,7 +12,7 @@ from materials.serializers import CourseSerializer, LessonSerializer
 class CourseViewSet(viewsets.ModelViewSet):
     """ViewSet для CRUD-операций над курсами с разделением прав и пагинацией."""
 
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by("id")
     serializer_class = CourseSerializer
     pagination_class = StandardResultsSetPagination
 
@@ -45,7 +45,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 class LessonListCreateView(generics.ListCreateAPIView):
     """Generic-класс для списка уроков и создания нового урока с пагинацией."""
 
-    queryset = Lesson.objects.all()
+    queryset = Lesson.objects.all().order_by("id")
     serializer_class = LessonSerializer
     pagination_class = StandardResultsSetPagination
 
