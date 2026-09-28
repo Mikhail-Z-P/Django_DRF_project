@@ -1,12 +1,8 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from materials.views import (
-    CourseViewSet,
-    LessonListCreateView,
-    LessonRetrieveUpdateDestroyView,
-    SubscriptionView,
-)
+from materials.views import (CourseViewSet, LessonListCreateView,
+                             LessonRetrieveUpdateDestroyView, SubscriptionView)
 
 router = DefaultRouter()
 router.register(r"courses", CourseViewSet)
