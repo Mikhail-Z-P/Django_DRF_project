@@ -14,7 +14,6 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     queryset = Course.objects.all().order_by("id")
     serializer_class = CourseSerializer
-    pagination_class = StandardResultsSetPagination
 
     def get_permissions(self):
         """Возвращает классы прав в зависимости от действия."""
@@ -47,7 +46,6 @@ class LessonListCreateView(generics.ListCreateAPIView):
 
     queryset = Lesson.objects.all().order_by("id")
     serializer_class = LessonSerializer
-    pagination_class = StandardResultsSetPagination
 
     def get_permissions(self):
         """Создание — только для не-модераторов, просмотр — для всех авторизованных."""
