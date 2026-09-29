@@ -1,6 +1,8 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,5 +151,6 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:8000",]
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_51UKjRq9Zw8sf7r7xkWv2fwziMxXlOzV6VFGvAATzVpzXD8yp6VqtAAk2BFlFNxeKettnzDRkNrSdbqgrHQyJ7VgL00dQx1WgEC")
-STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "pk_test_51UKjRq9Zw8sf7r7xeQ5HBIzzpNN7mZlOFgzrTFkqNVDFxd6PicxnjXVtENCYh6ojGlsGOjpMrYvSBjkvfOGVe27200CbF5DXaI")
+
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY")
