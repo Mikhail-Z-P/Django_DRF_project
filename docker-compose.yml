@@ -1,0 +1,64 @@
+services:
+  web:
+    build: .
+    command: >
+      bash -c "python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+    env_file: .env
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  db:
+    image: postgres:16
+    env_file: .env
+    expose:
+      - "5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    expose:
+      - "6379"
+    volumes:
+      - redis_data:/data
+
+  celery_worker:
+    build: .
+    command: celery -A config worker -l INFO
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  celery_beat:
+    build: .
+    command: celery -A config beat -l INFO
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  redis_data:
+  static_volume:
+  media_volume:
