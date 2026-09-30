@@ -15,7 +15,7 @@
 1. Скопируйте `.env.sample` в `.env` и заполните значения:
 
 ```bash
-cp .env.sample .env
+cp .env.template .env
 ```
 
 2. Соберите и запустите все сервисы:
