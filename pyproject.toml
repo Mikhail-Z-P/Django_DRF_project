@@ -2,7 +2,7 @@
 name = "django-drf-project"
 version = "0.1.0"
 description = ""
-authors = [{name = "[{name = \"Your Name\",email = \"you@example.com\"}]"}]
+authors = [{name = "Your Name", email = "you@example.com"}]
 readme = "README.md"
 requires-python = ">=3.14.5,<3.15"
 dependencies = [
@@ -15,7 +15,6 @@ dependencies = [
     "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
     "djangorestframework-guardian (>=0.4.0,<0.5.0)",
     "python-dotenv (>=1.2.3,<2.0.0)",
-    "coverage (>=7.16.2,<8.0.0)",
     "drf-yasg (>=1.21.15,<2.0.0)",
     "django-cors-headers (>=4.9.0,<5.0.0)",
     "stripe (>=15.6.1,<16.0.0)",
@@ -23,6 +22,7 @@ dependencies = [
     "redis (<5)",
     "eventlet (>=0.41.2,<0.42.0)",
     "psycopg2-binary (>=2.9.13,<3.0.0)",
+    "gunicorn (>=26.2.0,<27.0.0)",
 ]
 
 
@@ -39,12 +39,9 @@ lint = [
 ]
 dev = [
     "pytest (>=9.1.1,<10.0.0)",
-    "pytest-cov (>=7.1.0,<8.0.0)"
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "coverage (>=7.16.2,<8.0.0)"
 ]
 [tool.poetry]
-name = "django-drf-project"
-version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
 package-mode = false
 
