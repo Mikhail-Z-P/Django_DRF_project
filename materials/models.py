@@ -28,7 +28,6 @@ class Course(models.Model):
         return self.title
 
 
-
 class Lesson(models.Model):
     """Модель урока с привязкой к курсу и владельцу."""
 
