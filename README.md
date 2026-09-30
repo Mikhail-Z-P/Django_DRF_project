@@ -1,9 +1,13 @@
 # Django_DRF_project
 
+Проект онлайн-обучения на Django REST Framework с поддержкой платежей Stripe,
+Celery-задач и контейнеризации через Docker.
+
 # Структура
 - `config/` - настройки проекта (settings, urls, wsgi и т.д.)
 - `materials/` — приложение курсов, уроков и подписок
 - `users/` — приложение пользователей и платежей
+
 ## Установка
 1. `poetry install`
 2. `poetry shell`

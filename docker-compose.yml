@@ -5,6 +5,13 @@ services:
       bash -c "python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000"
     env_file: .env
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
     volumes:
       - .:/app
       - static_volume:/app/static
@@ -19,13 +26,16 @@ services:
 
   db:
     image: postgres:16
-    env_file: .env
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     expose:
       - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -41,6 +51,13 @@ services:
     build: .
     command: celery -A config worker -l INFO
     env_file: .env
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
     depends_on:
       db:
         condition: service_healthy
@@ -51,6 +68,13 @@ services:
     build: .
     command: celery -A config beat -l INFO
     env_file: .env
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
     depends_on:
       db:
         condition: service_healthy
