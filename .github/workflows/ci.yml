@@ -117,10 +117,12 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd ${{ secrets.DEPLOY_DIR }}
-            git pull
-            docker-compose -f docker-compose.prod.yml down
-            docker-compose -f docker-compose.prod.yml up -d --build
-            docker-compose -f docker-compose.prod.yml exec web python manage.py migrate
-            docker-compose -f docker-compose.prod.yml exec web python manage.py collectstatic --noinput
-            docker-compose -f docker-compose.prod.yml restart nginx
+            git pull origin main
+            source /home/test/.cache/pypoetry/virtualenvs/django-drf-project-ZvYCZdz3-py3.14/bin/activate
+            poetry install --no-root --without lint,dev
+            python manage.py migrate --noinput
+            python manage.py collectstatic --noinput
+            sudo systemctl restart gunicorn
+            sudo systemctl restart nginx
           EOF
+
